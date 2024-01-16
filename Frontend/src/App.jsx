@@ -1,9 +1,12 @@
 import './App.css'
-
+import Title from "./components/Title.jsx";
 function App() {
 
   return (
-   <div>hello</div>
+   <div>
+    <Title title = "App"></Title>
+    Hello world!
+   </div>
   )
 }
 
