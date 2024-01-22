@@ -1,9 +1,10 @@
-import React from 'react'
-
+import { NavBar } from "react-bootstrap/Navbar";
 const Header = () => {
-  return (
-    <div></div>
-  )
-}
+  return <header>
+    <NavBar bg="dark" variant="dark">
 
-export default Header
+    </NavBar>
+  </header>;
+};
+
+export default Header;
