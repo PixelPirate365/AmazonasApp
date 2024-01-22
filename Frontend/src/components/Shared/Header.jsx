@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import SearchBox from "./SearchBox";
+import Button from "react-bootstrap/Button";
 const Header = () => {
   return (
     <header>
@@ -17,7 +18,7 @@ const Header = () => {
               />
             </NavBar.Brand>
           </LinkContainer>
-          <SearchBox/>
+          <SearchBox />
           <nav className="d-flex align-items-center justify-content-end me-2 ms-4">
             <Link to="/cart" className="nav-link">
               <i
@@ -27,7 +28,9 @@ const Header = () => {
             </Link>
           </nav>
           <Link to="/signin" className="text-white nav-link">
-            Sign-In
+            <Button variant="outline-primary" id="button-signin">
+              Sign-in
+            </Button>
           </Link>
         </Container>
       </NavBar>
