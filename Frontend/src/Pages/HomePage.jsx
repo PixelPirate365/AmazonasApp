@@ -2,6 +2,9 @@ import { useEffect, useReducer } from "react";
 import Title from "../components/Shared/Title";
 import { homePageReducer } from "../reducers/homePageReducer";
 import Loading from "../components/Shared/Loading";
+import MessageBox from "../components/Shared/MessageBox";
+import Products from "../components/HomePage/Products";
+import { GET_ERROR, GET_REQUEST, GET_SUCCESS } from "../Actions";
 import axios from "axios";
 // rafce shortcut
 const initialState = { loading: true, error: "", data: [] };
@@ -10,15 +13,13 @@ const HomePage = () => {
   const { loading, error, data } = state;
   useEffect(() => {
     const getProducts = async () => {
-      dispatch({ type: "GET_REQUEST" });
+      dispatch({ type: GET_REQUEST });
       try {
-        const { data } = await axios.get(
-          "http://localhost:8080/api/v1/products"
-        );
-        dispatch({ type: "GET_SUCCESS", payload: data });
+        const res = await axios.get("/api/v1/products");
+        dispatch({ type: GET_SUCCESS, payload: res.data });
       } catch (error) {
         console.error("Error fetching data:", error);
-        dispatch({ type: "GET_ERROR", payload: error });
+        dispatch({ type: GET_ERROR, payload: error.message });
       }
     };
     getProducts();
@@ -35,7 +36,13 @@ const HomePage = () => {
         />
       </div>
       <div className="products">
-        {loading ? <Loading /> : error ? <MessageBox /> : <div>nice</div>}
+        {loading ? (
+          <Loading />
+        ) : error ? (
+          <MessageBox variant="danger">{error}</MessageBox>
+        ) : (
+          <Products products={data}></Products>
+        )}
       </div>
     </div>
   );

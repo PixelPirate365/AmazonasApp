@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import HomePage from "./Pages/HomePage";
 import Footer from "./components/Shared/Footer";
 import Header from "./components/Shared/Header";
+import SignInPage from "./Pages/SignInPage";
 function App() {
   return (
     <BrowserRouter>
@@ -13,6 +14,7 @@ function App() {
           <Container className="mt-3">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="signin" element={<SignInPage />} />
             </Routes>
           </Container>
         </main>
