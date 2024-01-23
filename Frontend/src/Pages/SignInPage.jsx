@@ -1,17 +1,24 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import Container from "react-bootstrap/Container";
 import Title from "../components/Shared/Title";
 import Form from "react-bootstrap/Form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getError } from "../utils";
+import { Store } from "../store";
+import { USER_SIGNIN } from "../Actions";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get("redirect");
+  const redirect = redirectInUrl ? redirectInUrl : "/";
+  const { dispatch: ctxDispatch } = useContext(Store);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -20,8 +27,9 @@ const SignInPage = () => {
         email: email,
         password: password,
       });
+      ctxDispatch({ type: USER_SIGNIN, payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate("/");
+      navigate(redirect);
     } catch (error) {
       toast.error(getError(error));
     }

@@ -7,6 +7,7 @@ import Footer from "./components/Shared/Footer";
 import Header from "./components/Shared/Header";
 import SignInPage from "./Pages/SignInPage";
 import { ToastContainer } from "react-toastify";
+import SignUpPage from "./Pages/SignUpPage";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="signin" element={<SignInPage />} />
+              <Route path="signup" element={<SignUpPage />} />
+              <Route path="*" element={<h1>Not Found</h1>} />
             </Routes>
           </Container>
         </main>

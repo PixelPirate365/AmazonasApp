@@ -4,7 +4,16 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import SearchBox from "./SearchBox";
 import Button from "react-bootstrap/Button";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import { useContext } from "react";
+import { Store } from "../../store";
+import { USER_SIGNOUT } from "../../Actions";
 const Header = () => {
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
+  const signoutHandler = () => {
+    ctxDispatch({ type: USER_SIGNOUT });
+  };
   return (
     <header>
       <NavBar bg="dark" variant="dark">
@@ -23,15 +32,28 @@ const Header = () => {
             <Link to="/cart" className="nav-link">
               <i
                 className="fas fa-shopping-cart text-white"
-                area-hidden="true"
+                aria-hidden="true"
               ></i>
             </Link>
           </nav>
-          <Link to="/signin" className="text-white nav-link">
-            <Button variant="outline-primary" id="button-signin">
-              Sign-in
-            </Button>
-          </Link>
+          {userInfo ? (
+            <NavDropdown
+              className="text-white"
+              title={userInfo.name}
+              id="username"
+            >
+              <NavDropdown.Divider />
+              <Link to="/#signout" onClick={signoutHandler} className="dropdown item">
+                Sign out
+              </Link>
+            </NavDropdown>
+          ) : (
+            <Link to="/signin" className="text-white nav-link">
+              <Button variant="outline-primary" id="button-signin">
+                Sign-in
+              </Button>
+            </Link>
+          )}
         </Container>
       </NavBar>
     </header>
