@@ -4,24 +4,24 @@ import axios from "axios";
 import Container from "react-bootstrap/Container";
 import Title from "../components/Shared/Title";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getError } from "../utils";
 
 const SignInPage = () => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post("/api/v1/user/signin", {
-        name: name,
         email: email,
         password: password,
       });
-      console.log(data);
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      navigate("/");
     } catch (error) {
       toast.error(getError(error));
     }
@@ -31,16 +31,6 @@ const SignInPage = () => {
       <Title title="SignIn Page" />
       <h1 className="my-3">Sign In</h1>
       <Form onSubmit={submitHandler}>
-        <Form.Group className="mb-3" controlId="name">
-          <Form.Label>FullName</Form.Label>
-          <Form.Control
-            required
-            type="name"
-            placeholder="Enter name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
