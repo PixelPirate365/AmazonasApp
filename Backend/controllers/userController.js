@@ -1,5 +1,5 @@
 import bcryptjs from "bcryptjs";
-import User from "../models/userModel.js";
+import User from "../models/User.js";
 import { generateToken } from "../utils.js";
 
 const signup = async (req, res) => {
@@ -34,3 +34,4 @@ const signin = async (req, res) => {
   }
   res.status(401).send({ message: "Invalid email or password" });
 };
+export { signup, signin };
