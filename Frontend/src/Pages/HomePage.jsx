@@ -13,11 +13,9 @@ const HomePage = () => {
         const { data } = await axios.get(
           "http://localhost:8080/api/v1/products"
         );
-        dispatch({ type: "GET_SUCCESS", payload: data});
-        console.log(data);
+        dispatch({ type: "GET_SUCCESS", payload: data });
       } catch (error) {
         console.error("Error fetching data:", error);
-      
         dispatch({ type: "GET_ERROR", payload: error.message });
       }
     };
