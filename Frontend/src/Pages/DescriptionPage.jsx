@@ -13,6 +13,7 @@ import { GET_ERROR, GET_SUCCESS, GET_REQUEST } from "../Actions";
 import ProductDescription from "../components/DescriptionPage/ProductDescription";
 import CartDescription from "../components/DescriptionPage/CartDescription";
 import { addToCartHandler } from "../common/commonCart";
+import Title from "../components/Shared/Title";
 
 const initialState = { loading: true, error: "", data: [] };
 
@@ -42,11 +43,12 @@ const DescriptionPage = () => {
   }, []);
   const addToCart = async () => {
     await addToCartHandler(data, cartItems, ctxDispatch);
-    navigate("/cart")
+    navigate("/cart");
   };
 
   return (
     <div>
+      <Title title={data.title} />
       {loading ? (
         <Loading />
       ) : error ? (
@@ -61,7 +63,7 @@ const DescriptionPage = () => {
               <ProductDescription {...data} />
             </Col>
             <Col md={3}>
-              <CartDescription data={data} />
+              <CartDescription data={data} addToCart={addToCart}/>
             </Col>
           </Row>
         </div>
