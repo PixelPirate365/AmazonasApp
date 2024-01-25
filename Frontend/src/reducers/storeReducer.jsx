@@ -8,7 +8,7 @@ export const storeReducer = (state, action) => {
       return { ...state, userInfo: payload };
     }
     case USER_SIGNOUT: {
-      return { ...state, userInfo: null };
+      return { ...state, userInfo: null, cart: { cartItems: [] , shippingAddress: {}, paymentMethod: ""} };
     }
     case CART_ADD_ITEM: {
       const newItem = payload;

@@ -39,6 +39,7 @@ const SignUpPage = () => {
       });
       ctxDispatch({ type: USER_SIGNIN, payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
+      toast.success("Sign up successfully");
       navigate(redirect);
     } catch (error) {
       toast.error(getError(error));

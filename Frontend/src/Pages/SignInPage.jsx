@@ -29,6 +29,7 @@ const SignInPage = () => {
       });
       ctxDispatch({ type: USER_SIGNIN, payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
+      toast.success("Sign in successfully");
       navigate(redirect);
     } catch (error) {
       toast.error(getError(error));

@@ -6,6 +6,9 @@ import MessageBox from "../components/Shared/MessageBox";
 import Products from "../components/HomePage/Products";
 import { GET_ERROR, GET_REQUEST, GET_SUCCESS } from "../Actions";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { getError } from "../utils";
+
 // rafce shortcut
 const initialState = { loading: true, error: "", data: [] };
 const HomePage = () => {
@@ -18,14 +21,14 @@ const HomePage = () => {
         const res = await axios.get("/api/v1/products");
         dispatch({ type: GET_SUCCESS, payload: res.data });
       } catch (error) {
-        console.error("Error fetching data:", error);
-        dispatch({ type: GET_ERROR, payload: error.message });
+        toast.error(getError(error));
+        dispatch({ type: GET_ERROR, payload: getError(error) });
       }
     };
     getProducts();
   }, []);
 
-  
+
   return (
     <div>
       <Title title="HomePage" />

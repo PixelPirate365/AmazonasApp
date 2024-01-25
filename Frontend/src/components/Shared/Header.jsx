@@ -1,5 +1,6 @@
 import NavBar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
+import Badge from "react-bootstrap/Badge";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
 import SearchBox from "./SearchBox";
@@ -7,13 +8,27 @@ import Button from "react-bootstrap/Button";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useContext } from "react";
 import { Store } from "../../store";
+import { toast } from "react-toastify";
 import { USER_SIGNOUT } from "../../Actions";
 
 const Header = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { userInfo } = state;
+  const {
+    userInfo,
+    cart: { cartItems },
+  } = state;
   const signoutHandler = () => {
-    ctxDispatch({ type: USER_SIGNOUT });
+    try {
+      //add cookies after
+      ctxDispatch({ type: USER_SIGNOUT });
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("cartItems");
+      localStorage.removeItem("shippingAddress");
+      localStorage.removeItem("paymentMethod");
+      toast.success("Sign out successfully");
+    } catch (error) {
+      toast.error(getError(error));
+    }
   };
   return (
     <header>
@@ -35,6 +50,11 @@ const Header = () => {
                 className="fas fa-shopping-cart text-white"
                 aria-hidden="true"
               ></i>
+              {cartItems.length > 0 && (
+                <Badge pill bg="danger">
+                  {cartItems.reduce((a, c) => a + c.quantity, 0)}
+                </Badge>
+              )}
             </Link>
           </nav>
           {userInfo ? (
@@ -44,7 +64,15 @@ const Header = () => {
               id="username"
             >
               <NavDropdown.Divider />
-              <Link to="/#signout" onClick={signoutHandler} className="dropdown item">
+              <Link to="/profile" className="dropdown-item ">
+                Profile
+              </Link>
+              <NavDropdown.Divider />
+              <Link
+                to="/#signout"
+                onClick={signoutHandler}
+                className="dropdown-item text-danger"
+              >
                 Sign out
               </Link>
             </NavDropdown>

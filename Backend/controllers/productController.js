@@ -25,3 +25,17 @@ export const getProductById = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+export const getProductByToken = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const product = await Product.findOne({ token: token });
+    if (product) {
+      res.send(product);
+    } else {
+      res.status(404).json({ message: "Product Not Found" });
+    }
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}

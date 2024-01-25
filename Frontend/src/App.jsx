@@ -6,8 +6,11 @@ import HomePage from "./Pages/HomePage";
 import Footer from "./components/Shared/Footer";
 import Header from "./components/Shared/Header";
 import SignInPage from "./Pages/SignInPage";
+import NotFoundPage from "./Pages/NotFoundPage";
 import { ToastContainer } from "react-toastify";
 import SignUpPage from "./Pages/SignUpPage";
+import ProfilePage from "./Pages/ProfilePage";
+import DescriptionPage from "./Pages/DescriptionPage";
 
 function App() {
   return (
@@ -25,7 +28,7 @@ function App() {
           pauseOnHover
           theme="light"
           transition:Bounce
-          limit = {2}
+          limit={2}
         />
         <Header />
         <main>
@@ -33,8 +36,12 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="signin" element={<SignInPage />} />
+              <Route path="cart" element={<h2>on dev</h2>} />
+
               <Route path="signup" element={<SignUpPage />} />
-              <Route path="*" element={<h1>Not Found</h1>} />
+              <Route path="profile" element={<ProfilePage />} />
+              <Route path="product/:token" element={<DescriptionPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Container>
         </main>
