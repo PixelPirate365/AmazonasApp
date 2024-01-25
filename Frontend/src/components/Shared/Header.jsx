@@ -2,7 +2,7 @@ import NavBar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Badge from "react-bootstrap/Badge";
 import { LinkContainer } from "react-router-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBox from "./SearchBox";
 import Button from "react-bootstrap/Button";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { USER_SIGNOUT } from "../../Actions";
 
 const Header = () => {
+  const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     userInfo,
@@ -34,6 +35,13 @@ const Header = () => {
     <header>
       <NavBar bg="dark" variant="dark">
         <Container>
+          {window.location.pathname !== "/" && (
+            <div className="d-flex align-items-left justify-content-end me-2 ms-4">
+              <Button variant="outline-primary" id="button-signin" onClick={() => navigate(-1)}>
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </Button>
+            </div>
+          )}
           <LinkContainer to="/">
             <NavBar.Brand>
               <img
@@ -43,6 +51,7 @@ const Header = () => {
               />
             </NavBar.Brand>
           </LinkContainer>
+
           <SearchBox />
           <nav className="d-flex align-items-center justify-content-end me-2 ms-4">
             <Link to="/cart" className="nav-link">
