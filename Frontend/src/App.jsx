@@ -13,7 +13,20 @@ function App() {
   return (
     <BrowserRouter>
       <div className="d-flex flex-column side-allPage min-width">
-        <ToastContainer position="bottom-center" limit={1} />
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition:Bounce
+          limit = {2}
+        />
         <Header />
         <main>
           <Container className="mt-3">

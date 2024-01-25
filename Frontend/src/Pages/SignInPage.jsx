@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext,useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import Container from "react-bootstrap/Container";
@@ -18,8 +18,8 @@ const SignInPage = () => {
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
-  const { dispatch: ctxDispatch } = useContext(Store);
-
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -34,6 +34,11 @@ const SignInPage = () => {
       toast.error(getError(error));
     }
   };
+  useEffect(() => {
+    if (userInfo) {
+        navigate(redirect);
+    }
+}, [navigate, redirect, userInfo]);
   return (
     <Container className="small-container">
       <Title title="SignIn Page" />

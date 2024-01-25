@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getError } from "../utils";
@@ -23,7 +23,8 @@ const SignUpPage = () => {
   const redirect = redirectInUrl ? redirectInUrl : "/";
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-
+  const { userInfo } = state;
+  
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -43,6 +44,11 @@ const SignUpPage = () => {
       toast.error(getError(error));
     }
   };
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
   return (
     <Container className="small-container">
       <Title title="SignUp Page" />

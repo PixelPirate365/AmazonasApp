@@ -1,6 +1,6 @@
 import Product from "../models/Product.js";
 
-const getProducts = async (req, res) => {
+export const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
 
@@ -12,4 +12,16 @@ const getProducts = async (req, res) => {
   }
 };
 
-export default getProducts;
+export const getProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      res.send(product);
+    } else {
+      res.status(404).json({ message: "Product Not Found" });
+    }
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

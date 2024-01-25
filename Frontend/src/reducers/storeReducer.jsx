@@ -1,12 +1,25 @@
-import { USER_SIGNIN,USER_SIGNOUT } from "../Actions";
+import { USER_SIGNIN, USER_SIGNOUT, CART_ADD_ITEM } from "../Actions";
 
 export const storeReducer = (state, action) => {
-  switch (action.type) {
+  const type = action.type;
+  const payload = action.payload;
+  switch (type) {
     case USER_SIGNIN: {
-      return { ...state, userInfo: action.payload };
+      return { ...state, userInfo: payload };
     }
     case USER_SIGNOUT: {
       return { ...state, userInfo: null };
+    }
+    case CART_ADD_ITEM: {
+      const newItem = payload;
+      const existingItem = state.cart.cartItems.find((item) => item._id === newItem._id);
+      const cartItems = existingItem
+        ? state.cart.cartItems.map((item) =>
+            item._id === existingItem._id ? newItem : item
+          )
+        : [...state.cart.cartItems, newItem];
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      return { ...state, cart: { ...state.cart, cartItems } };
     }
     default:
       return state;

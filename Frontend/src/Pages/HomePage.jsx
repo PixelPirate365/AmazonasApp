@@ -25,6 +25,7 @@ const HomePage = () => {
     getProducts();
   }, []);
 
+  
   return (
     <div>
       <Title title="HomePage" />
