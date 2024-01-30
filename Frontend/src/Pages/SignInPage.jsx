@@ -11,8 +11,6 @@ import { Store } from "../store";
 import { USER_SIGNIN } from "../Actions";
 
 const SignInPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get("redirect");
@@ -22,6 +20,9 @@ const SignInPage = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const formEntries = Object.fromEntries(formData.entries());
+    const { email, password } = formEntries;
     try {
       const { data } = await axios.post("/api/v1/user/signin", {
         email: email,
@@ -50,18 +51,16 @@ const SignInPage = () => {
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type="email"
+            name="email"
             placeholder="Enter email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
+            name="password"
             placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <div className="mb-3">
