@@ -1,4 +1,4 @@
-import { useState, useContext,useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import Container from "react-bootstrap/Container";
@@ -37,9 +37,9 @@ const SignInPage = () => {
 
   useEffect(() => {
     if (userInfo) {
-        navigate(redirect);
+      navigate(redirect);
     }
-}, [navigate, redirect, userInfo]);
+  }, [navigate, redirect, userInfo]);
 
   return (
     <Container className="small-container">

@@ -18,13 +18,16 @@ const ItemsInCart = ({
         <ListGroup>
           {cartItems.map((item) => (
             <ListGroup.Item key={item._id}>
-              <Row>
-                <Col md={8}>
+              <Row className="d-flex align-items-center">
+                <Col md={3}>
                   <img
                     src={item.image}
                     alt={item.title}
                     className="img-fluid rounded img-thumbnail"
+                    style={{border:"none"}}
                   />
+                </Col>
+                <Col md={5}>
                   <Link to={`/product/${item.token}`}>
                     <strong>{item.title}</strong>
                   </Link>
