@@ -35,8 +35,8 @@ const Header = () => {
   return (
     <header>
       <NavBar bg="dark" variant="dark">
-        <Container>
-          {location.pathname !== "/" && (
+        {location.pathname !== "/" &&
+          (location.pathname !== "/shipping" && (
             <div className="d-flex align-items-left justify-content-end me-2 ms-4">
               <Button
                 variant="outline-primary"
@@ -46,7 +46,8 @@ const Header = () => {
                 <i className="fa fa-arrow-left" aria-hidden="true"></i>
               </Button>
             </div>
-          )}
+          ))}
+        <Container>
           <LinkContainer to="/">
             <NavBar.Brand>
               <img
