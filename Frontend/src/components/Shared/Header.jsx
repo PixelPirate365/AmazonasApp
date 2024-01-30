@@ -2,7 +2,7 @@ import NavBar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Badge from "react-bootstrap/Badge";
 import { LinkContainer } from "react-router-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import SearchBox from "./SearchBox";
 import Button from "react-bootstrap/Button";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -13,6 +13,7 @@ import { USER_SIGNOUT } from "../../Actions";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     userInfo,
@@ -35,10 +36,14 @@ const Header = () => {
     <header>
       <NavBar bg="dark" variant="dark">
         <Container>
-          {window.location.pathname !== "/" && (
+          {location.pathname !== "/" && (
             <div className="d-flex align-items-left justify-content-end me-2 ms-4">
-              <Button variant="outline-primary" id="button-signin" onClick={() => navigate(-1)}>
-                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              <Button
+                variant="outline-primary"
+                id="button-back"
+                onClick={() => navigate(-1)}
+              >
+                <i className="fa fa-arrow-left" aria-hidden="true"></i>
               </Button>
             </div>
           )}

@@ -12,6 +12,7 @@ import SignUpPage from "./Pages/SignUpPage";
 import ProfilePage from "./Pages/ProfilePage";
 import DescriptionPage from "./Pages/DescriptionPage";
 import CartPage from "./Pages/CartPage";
+import ShippingPage from "./Pages/ShippingPage";
 
 function App() {
   return (
@@ -36,12 +37,12 @@ function App() {
           <Container className="mt-3">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="signin" element={<SignInPage />} />
-              <Route path="cart" element={<CartPage />} />
-
-              <Route path="signup" element={<SignUpPage />} />
-              <Route path="profile" element={<ProfilePage />} />
-              <Route path="product/:token" element={<DescriptionPage />} />
+              <Route path="/signin" element={<SignInPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/shipping" element={<ShippingPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/product/:token" element={<DescriptionPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Container>

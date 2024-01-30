@@ -14,12 +14,12 @@ const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -34,11 +34,13 @@ const SignInPage = () => {
       toast.error(getError(error));
     }
   };
+
   useEffect(() => {
     if (userInfo) {
         navigate(redirect);
     }
 }, [navigate, redirect, userInfo]);
+
   return (
     <Container className="small-container">
       <Title title="SignIn Page" />

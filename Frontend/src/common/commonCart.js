@@ -1,10 +1,14 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { CART_ADD_ITEM } from "../Actions";
+import { CART_ADD_ITEM,  CART_REMOVE_ITEM } from "../Actions";
 import { getError } from "../utils";
 
+export const checkExistItem = (cartItems, product) => {
+  return cartItems.find((item) => item._id === product._id);
+};
+
 export const addToCartHandler = async (product, cartItems, ctxDispatch) => {
-  const existItem = cartItems.find((item) => item._id === product._id);
+  const existItem = checkExistItem(cartItems, product);
   const quantity = existItem ? existItem.quantity + 1 : 1;
   try {
     const { data } = await axios.get(`/api/v1/products/${product._id}`);
@@ -15,6 +19,10 @@ export const addToCartHandler = async (product, cartItems, ctxDispatch) => {
     ctxDispatch({ type: CART_ADD_ITEM, payload: { ...product, quantity } });
     toast.success("Product added to cart");
   } catch (error) {
-    getError(error);
+    toast.error(getError(error));
   }
 };
+
+
+
+

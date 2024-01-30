@@ -23,6 +23,7 @@ const DescriptionPage = () => {
     initialState
   );
   const params = useParams();
+  const {token} = params;
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cartItems } = state.cart;
@@ -31,7 +32,7 @@ const DescriptionPage = () => {
       dispatch({ type: GET_REQUEST });
       try {
         const { data } = await axios.get(
-          `/api/v1/products/token/${params.token}`
+          `/api/v1/products/token/${token}`
         );
         dispatch({ type: GET_SUCCESS, payload: data });
       } catch (error) {
