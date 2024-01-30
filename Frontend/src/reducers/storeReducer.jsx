@@ -2,7 +2,8 @@ import {
   USER_SIGNIN,
   USER_SIGNOUT,
   CART_ADD_ITEM,
-  CART_REMOVE_ITEM
+  CART_REMOVE_ITEM,
+  SAVE_SHIPPING_ADDRESS,
 } from "../Actions";
 
 export const storeReducer = (state, action) => {
@@ -38,6 +39,13 @@ export const storeReducer = (state, action) => {
       );
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } };
+    }
+    case SAVE_SHIPPING_ADDRESS: {
+      localStorage.setItem("shippingAddress", JSON.stringify(payload));
+      return {
+        ...state,
+        cart: { ...state.cart, shippingAddress: payload },
+      };
     }
     default:
       return state;
