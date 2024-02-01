@@ -14,6 +14,7 @@ import DescriptionPage from "./Pages/DescriptionPage";
 import CartPage from "./Pages/CartPage";
 import ShippingPage from "./Pages/ShippingPage";
 import PaymentPage from "./Pages/PaymentPage";
+import SubmitOrderPage from "./Pages/SubmitOrderPage";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
               <Route path="/shipping" element={<ShippingPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/payment" element={<PaymentPage />} />
+              <Route path="/placeorder" element={<SubmitOrderPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/product/:token" element={<DescriptionPage />} />
               <Route path="*" element={<NotFoundPage />} />

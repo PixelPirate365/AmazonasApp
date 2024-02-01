@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { CART_ADD_ITEM,  CART_REMOVE_ITEM } from "../Actions";
+import { CART_ADD_ITEM } from "../Actions";
 import { getError } from "../utils";
 
 export const checkExistItem = (cartItems, product) => {

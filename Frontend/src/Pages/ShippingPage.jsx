@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Title from "../components/Shared/Title";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../store";
@@ -11,17 +11,36 @@ const ShippingPage = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     userInfo,
-    cart: { cartItems },
+    cart: { cartItems, shippingAddress },
   } = state;
+
+  const [formValues, setFormValues] = useState({
+    fullName: "",
+    address: "",
+    city: "",
+    postalCode: "",
+    country: "",
+  });
+
+  const isShippingAddressExist = () => {
+    return shippingAddress && Object.keys(shippingAddress).length > 0;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+    
     try {
       ctxDispatch({
         type: SAVE_SHIPPING_ADDRESS,
-        payload: data,
+        payload: formValues,
       });
       navigate("/payment");
     } catch (error) {
@@ -36,11 +55,18 @@ const ShippingPage = () => {
     if (!userInfo) {
       navigate("/signin?redirect=/shipping");
     }
-  }, [cartItems.length, navigate, userInfo]);
+    // Set the form values when shippingAddress exists
+    if (isShippingAddressExist()) {
+      setFormValues({
+        ...formValues,
+        ...shippingAddress,
+      });
+    }
+  }, [cartItems.length, navigate, userInfo, shippingAddress]);
 
   return (
     <div>
-      <Title title="Shipping Page" />
+      <Title title="Shipping" />
       <CheckoutSteps isStep1 isStep2 />
       <Container className="small-container">
         <h1 className="my-3">Shipping Address</h1>
@@ -52,6 +78,8 @@ const ShippingPage = () => {
               type="text"
               name="fullName"
               placeholder="Enter full name"
+              value={formValues.fullName}
+              onChange={handleInputChange}
             ></Form.Control>
           </Form.Group>
           <Form.Group className="mb-3" controlId="address">
@@ -61,6 +89,8 @@ const ShippingPage = () => {
               type="text"
               name="address"
               placeholder="Enter address"
+              value={formValues.address}
+              onChange={handleInputChange}
             ></Form.Control>
           </Form.Group>
           <Form.Group className="mb-3" controlId="city">
@@ -70,6 +100,8 @@ const ShippingPage = () => {
               type="text"
               name="city"
               placeholder="Enter city"
+              value={formValues.city}
+              onChange={handleInputChange}
             ></Form.Control>
           </Form.Group>
           <Form.Group className="mb-3" controlId="postalCode">
@@ -79,6 +111,8 @@ const ShippingPage = () => {
               type="text"
               name="postalCode"
               placeholder="Enter postal code"
+              value={formValues.postalCode}
+              onChange={handleInputChange}
             ></Form.Control>
           </Form.Group>
           <Form.Group className="mb-3" controlId="country">
@@ -88,6 +122,8 @@ const ShippingPage = () => {
               type="text"
               name="country"
               placeholder="Enter country"
+              value={formValues.country}
+              onChange={handleInputChange}
             ></Form.Control>
           </Form.Group>
           <div className="mb-3">
