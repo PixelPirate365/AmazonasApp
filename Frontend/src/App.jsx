@@ -45,6 +45,7 @@ function App() {
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/payment" element={<PaymentPage />} />
               <Route path="/placeorder" element={<SubmitOrderPage />} />
+              {/* <Route path="/order/:_id" element={<SubmitOrderPage />} /> */}
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/product/:token" element={<DescriptionPage />} />
               <Route path="*" element={<NotFoundPage />} />

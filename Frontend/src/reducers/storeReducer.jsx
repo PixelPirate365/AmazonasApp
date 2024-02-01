@@ -5,6 +5,7 @@ import {
   CART_REMOVE_ITEM,
   SAVE_SHIPPING_ADDRESS,
   SAVE_PAYMENT_METHOD,
+  CLEAR_CART,
 } from "../Actions";
 
 export const storeReducer = (state, action) => {
@@ -53,6 +54,13 @@ export const storeReducer = (state, action) => {
       return {
         ...state,
         cart: { ...state.cart, paymentMethod: payload },
+      };
+    }
+    case CLEAR_CART: {
+      localStorage.removeItem("cartItems");
+      return {
+        ...state,
+        cart: { ...state.cart, cartItems: [] },
       };
     }
     default:
