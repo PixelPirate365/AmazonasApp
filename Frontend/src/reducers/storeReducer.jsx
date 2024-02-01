@@ -49,7 +49,7 @@ export const storeReducer = (state, action) => {
       };
     }
     case SAVE_PAYMENT_METHOD: {
-      localStorage.setItem("shippingAddress", JSON.stringify(payload));
+      localStorage.setItem("paymentMethod", JSON.stringify(payload));
       return {
         ...state,
         cart: { ...state.cart, paymentMethod: payload },
