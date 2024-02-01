@@ -40,19 +40,21 @@ const PaymentSummary = ({
               <Col>${cart.totalPrice.toFixed(2)}</Col>
             </Row>
           </ListGroup.Item>
+          <ListGroup.Item>
+            <Row>
+              {status === "submitOrder" && (
+                <Button
+                  variant="outline-primary"
+                  onClick={submitOrderHandler}
+                  disabled={loading}
+                >
+                  Submit Order
+                </Button>
+              )}
+              {loading && <Loading />}
+            </Row>
+          </ListGroup.Item>
         </ListGroup>
-        <Row>
-          {status.toLower === "submitOrder" && (
-            <Button
-              variant="primary"
-              onClick={submitOrderHandler}
-              disabled={loading}
-            >
-              Submit
-            </Button>
-          )}
-          {loading && <Loading />}
-        </Row>
       </Card>
     </>
   );

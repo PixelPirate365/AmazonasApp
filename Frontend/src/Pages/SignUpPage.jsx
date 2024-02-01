@@ -30,7 +30,7 @@ const SignUpPage = () => {
       return;
     }
     try {
-      const { data } = await axios.post("/api/v1/user/signup", {
+      const { data } = await axios.post("/api/v1/users/signup", {
         name: name,
         email: email,
         password: password,

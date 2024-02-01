@@ -24,7 +24,7 @@ const SignInPage = () => {
     const formEntries = Object.fromEntries(formData.entries());
     const { email, password } = formEntries;
     try {
-      const { data } = await axios.post("/api/v1/user/signin", {
+      const { data } = await axios.post("/api/v1/users/signin", {
         email: email,
         password: password,
       });

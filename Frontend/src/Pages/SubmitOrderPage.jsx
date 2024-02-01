@@ -32,7 +32,7 @@ const SubmitOrderPage = () => {
         shippingPrice: cart.shippingPrice,
         totalPrice: cart.totalPrice,
         user: userInfo._id,
-      },{headers: {Authorization: `Bearer ${userInfo.token}`},});
+      },{headers: {authorization: `Bearer ${userInfo.token}`},});
       ctxDispatch({ type: "CLEAR_CART" });
       navigate(`/order/${data.order._id}`);
     } catch (error) {
@@ -68,7 +68,7 @@ const SubmitOrderPage = () => {
           <PaymentSummary
             loading={loading}
             submitOrderHandler={submitOrderHandler}
-            status={"submitorder"}
+            status={"submitOrder"}
             cart={cart}
           />
         </Col>

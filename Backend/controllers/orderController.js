@@ -16,9 +16,10 @@ const addOrder = asyncHandler(async (req, res) => {
     res.status(400).send({ message: "Cart is empty" });
   } else {
     const order = new Order({
-      orderItems: req.body.orderItems.map((item) => {
-        return { ...item, product: item._id };
-      }),
+      orderItems: req.body.orderItems.map((item) => ({
+        ...item,
+        product: item._id,
+      })),
       shippingAddress,
       paymentMethod,
       itemsPrice,
@@ -28,11 +29,12 @@ const addOrder = asyncHandler(async (req, res) => {
       user: req.user._id,
     });
     const createdOrder = await order.save();
-    res.status(201).send({ message: "New Order Created", data: createdOrder });
+    res.status(201).send({ message: "New Order Created", createdOrder });
   }
 });
 const getOrderById = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id);
+  const { id } = req.params;
+  const order = await Order.findById(id);
   if (order) {
     res.send(order);
   } else {
@@ -40,7 +42,8 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 });
 const getOrdersByUser = asyncHandler(async (req, res) => {
-  const orders = await Order.find({ user: req.user._id });
+  const { _id } = req.user;
+  const orders = await Order.find({ user: _id });
   if (orders) {
     res.send(orders);
   } else {
