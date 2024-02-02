@@ -1,7 +1,5 @@
 import asyncHandler from "express-async-handler";
 import Order from "../models/Order.js";
-import Product from "../models/Product.js";
-import User from "../models/User.js";
 
 const addOrder = asyncHandler(async (req, res) => {
   const {
@@ -29,23 +27,22 @@ const addOrder = asyncHandler(async (req, res) => {
       user: req.user._id,
     });
     const createdOrder = await order.save();
-    res.status(201).send({ message: "New Order Created", createdOrder });
+    res.status(201).send({ message: "New Order Created", order: createdOrder });
   }
 });
 const getOrderById = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const order = await Order.findById(id);
   if (order) {
-    res.send(order);
+    res.send({order: order});
   } else {
     res.status(404).send({ message: "Order Not Found" });
   }
 });
 const getOrdersByUser = asyncHandler(async (req, res) => {
-  const { _id } = req.user;
-  const orders = await Order.find({ user: _id });
+  const orders = await Order.find({ user: req.params.id });
   if (orders) {
-    res.send(orders);
+    res.send({orders:orders});
   } else {
     res.status(404).send({ message: "Order Not Found" });
   }

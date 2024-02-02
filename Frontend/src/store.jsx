@@ -16,8 +16,11 @@ const initialState = {
       : {},
     paymentMethod: localStorage.getItem("paymentMethod")
       ? JSON.parse(localStorage.getItem("paymentMethod"))
-      : ""
+      : "",
   },
+  userOrders: localStorage.getItem("userOrders")
+    ? JSON.parse(localStorage.getItem("userOrders"))
+    : [],
 };
 export const StoreProvider = ({ children }) => {
   const [state, dispatch] = useReducer(storeReducer, initialState);

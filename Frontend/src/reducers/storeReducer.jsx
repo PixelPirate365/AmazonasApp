@@ -6,6 +6,7 @@ import {
   SAVE_SHIPPING_ADDRESS,
   SAVE_PAYMENT_METHOD,
   CLEAR_CART,
+  SAVE_USER_ORDERS,
 } from "../Actions";
 
 export const storeReducer = (state, action) => {
@@ -63,6 +64,10 @@ export const storeReducer = (state, action) => {
         cart: { ...state.cart, cartItems: [] },
       };
     }
+    case SAVE_USER_ORDERS: {
+      return { ...state, userOrders: payload  };
+    }
+    //fetch user orders
     default:
       return state;
   }

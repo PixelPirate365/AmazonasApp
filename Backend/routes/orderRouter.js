@@ -11,6 +11,6 @@ const orderRouter = express.Router();
 
 orderRouter.post("/", isAuth, expressAsyncHandler(addOrder));
 orderRouter.get("/:id", isAuth, expressAsyncHandler(getOrderById));
-orderRouter.get("/", isAuth, expressAsyncHandler(getOrdersByUser));
+orderRouter.get("/user/:id", isAuth, expressAsyncHandler(getOrdersByUser));
 
 export default orderRouter;

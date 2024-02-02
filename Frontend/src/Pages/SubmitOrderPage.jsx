@@ -23,19 +23,24 @@ const SubmitOrderPage = () => {
   const submitOrderHandler = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post("/api/v1/orders", {
-        orderItems: cart.cartItems,
-        shippingAddress: cart.shippingAddress,
-        paymentMethod: cart.paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        taxPrice: cart.taxPrice,
-        shippingPrice: cart.shippingPrice,
-        totalPrice: cart.totalPrice,
-        user: userInfo._id,
-      },{headers: {authorization: `Bearer ${userInfo.token}`},});
+      const { data } = await axios.post(
+        "/api/v1/orders",
+        {
+          orderItems: cart.cartItems,
+          shippingAddress: cart.shippingAddress,
+          paymentMethod: cart.paymentMethod,
+          itemsPrice: cart.itemsPrice,
+          taxPrice: cart.taxPrice,
+          shippingPrice: cart.shippingPrice,
+          totalPrice: cart.totalPrice,
+          user: userInfo._id,
+        },
+        { headers: { authorization: `Bearer ${userInfo.token}` } }
+      );
       ctxDispatch({ type: "CLEAR_CART" });
       navigate(`/order/${data.order._id}`);
     } catch (error) {
+      console.error(error);
       toast.error(getError(error));
     } finally {
       setLoading(false);
