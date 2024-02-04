@@ -74,7 +74,7 @@ const OrderInProfile = () => {
                 <Col md={1}>
                   <Button
                     onClick={() => {
-                      navigateToOrderDetails;
+                      navigateToOrderDetails(order);
                     }}
                   >
                     <i className="fa fa-info-circle"></i>

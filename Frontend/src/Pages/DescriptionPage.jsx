@@ -25,7 +25,7 @@ const DescriptionPage = () => {
   const params = useParams();
   const {token} = params;
   const navigate = useNavigate();
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { state ,dispatch:ctxDispatch} = useContext(Store);
   const { cartItems } = state.cart;
   useEffect(() => {
     const getProduct = async () => {
