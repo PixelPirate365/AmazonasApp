@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { getError } from "../utils";
 
 import { Store } from "../store";
+import OrderDetails from "../components/Shared/OrderDetails";
 
 const initialState = { loading: true, error: "", data: [] };
 
@@ -72,34 +73,7 @@ const OrderDetailsPage = () => {
                 <ListGroup.Item>
                   <h2>Order Items</h2>
                   <ListGroup variant="flush">
-                    {order && order.orderItems && order.orderItems.length > 0 ? (
-                      order.orderItems.map((item) => (
-                        <ListGroup.Item key={item._id}>
-                          <Row>
-                            <Col md={2}>
-                              <img
-                                src={item.image}
-                                alt={item.title}
-                                className="img-fluid rounded img-thumbnail"
-                              />
-                            </Col>
-                            <Col>
-                              <p>{item.title}</p>
-                            </Col>
-                            <Col md={3}>
-                              <p>
-                                {item.quantity} x ${item.price} = $
-                                {item.quantity * item.price}
-                              </p>
-                            </Col>
-                          </Row>
-                        </ListGroup.Item>
-                      ))
-                    ) : (
-                      <MessageBox variant="info">
-                        No items in the order
-                      </MessageBox>
-                    )}
+                    <OrderDetails order={order} />
                   </ListGroup>
                 </ListGroup.Item>
               </ListGroup>

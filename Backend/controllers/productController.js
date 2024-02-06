@@ -14,7 +14,12 @@ export const getProducts = async (req, res) => {
 
 export const getProductById = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const id = req.params.id;
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      // It's not a valid ObjectId, do something here
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
+    const product = await Product.findById(id);
     if (product) {
       res.send(product);
     } else {
@@ -36,6 +41,14 @@ export const getProductByToken = async (req, res) => {
     }
   } catch (error) {
     console.error("Error fetching product:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+export const getCategories = async (req, res) => {
+  try {
+    const categories = await Product.find().distinct("category");
+    res.send(categories);
+  } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }

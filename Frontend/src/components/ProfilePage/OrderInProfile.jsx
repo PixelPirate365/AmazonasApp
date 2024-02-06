@@ -28,7 +28,7 @@ const OrderInProfile = () => {
   };
 
   return (
-    <div>
+    <>
       <ListGroup>
         <h2>My Orders</h2>
         {userOrders.length === 0 ? (
@@ -95,15 +95,19 @@ const OrderInProfile = () => {
               <Col md={6}>
                 <h5>Shipping Address</h5>
                 <p>
-                  <strong>FullName:</strong> {selectedOrder.shippingAddress.fullName}
+                  <strong>FullName:</strong>{" "}
+                  {selectedOrder.shippingAddress.fullName}
                   <br />
-                  <strong>Address:</strong> {selectedOrder.shippingAddress.address}
+                  <strong>Address:</strong>{" "}
+                  {selectedOrder.shippingAddress.address}
                   <br />
                   <strong>City:</strong> {selectedOrder.shippingAddress.city}
                   <br />
-                  <strong>PostalCode:</strong> {selectedOrder.shippingAddress.postalCode}
+                  <strong>PostalCode:</strong>{" "}
+                  {selectedOrder.shippingAddress.postalCode}
                   <br />
-                  <strong>Country:</strong> {selectedOrder.shippingAddress.country}
+                  <strong>Country:</strong>{" "}
+                  {selectedOrder.shippingAddress.country}
                   <br />
                 </p>
               </Col>
@@ -116,7 +120,7 @@ const OrderInProfile = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   );
 };
 OrderInProfile.propTypes = {
