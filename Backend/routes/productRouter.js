@@ -4,15 +4,15 @@ import {
   getProductById,
   getProductByToken,
   getCategories,
-  
+  getProductsByQuery,
 } from "../controllers/productController.js";
 
 const productRouter = express.Router();
 
 productRouter.get("/", getProducts);
 productRouter.get("/categories", getCategories);
+productRouter.get("/search", getProductsByQuery);
 productRouter.get("/token/:token", getProductByToken);
 productRouter.get("/:id", getProductById);
-
 
 export default productRouter;

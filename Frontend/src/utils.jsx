@@ -23,6 +23,5 @@ export const getFilterUrl = (searchFromUrl, filter, skipPathName) => {
   ).toString();
 
   const link = `${skipPathName ? "" : "/search?"}${params}`;
-console.log(link)
   return link;
 };

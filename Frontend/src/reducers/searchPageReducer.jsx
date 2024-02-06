@@ -15,6 +15,7 @@ export const searchPageReducer = (state, action) => {
         products: action.payload.products,
         pages: action.payload.pages,
         countProducts: action.payload.countProducts,
+        page: action.payload.page,
       };
     }
     default:
